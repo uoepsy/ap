@@ -1,1 +1,1 @@
-# ap
+# applied psychometrics course
