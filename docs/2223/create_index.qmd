@@ -6,7 +6,7 @@ format: html
 ```{r}
 library(tidyverse)
 library(kableExtra)
-
+options(knitr.kable.NA = '')
 course = "ap"
 year = "2223"
 archives = NULL
