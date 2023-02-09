@@ -3,6 +3,13 @@ title: "Untitled"
 format: html
 ---
 
+DON'T KNIT
+just run the code chunk.
+this will create a file called index2.html in the same directory as this .qmd file
+open that .html to check that all looks okay
+rename it as index.html so that it is the one used on the website (in doing so, replace the old one)
+
+
 ```{r}
 library(tidyverse)
 library(kableExtra)
@@ -13,6 +20,7 @@ archives = NULL
 
 cmaterials <- read.csv("course_materials.csv")
 cmaterials <- cmaterials %>% transmute(
+  weeknr,
   Week = ifelse(nchar(week)==0,NA,week),
   Slides = case_when(
     !is.na(lec) & nchar(leclink)>0 ~ paste0('<a href="',leclink,'">',lec,'</a>'),
@@ -28,9 +36,10 @@ cmaterials <- cmaterials %>%
   fill(Week, .direction="down") %>% 
   group_by(Week) %>% 
   summarise(
+    weeknr = first(weeknr),
     Slides = paste0(Slides,collapse="<br>"),
     Workbook = paste0(Workbook,collapse="<br>")
-  )
+  ) %>% arrange(weeknr) %>% select(-weeknr)
 
 
 
